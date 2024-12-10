@@ -1,5 +1,5 @@
 {
-	"name": "adf-e2e-de",
+	"name": "adf-etl-demo01",
 	"location": "eastus2",
 	"identity": {
 		"type": "SystemAssigned",
