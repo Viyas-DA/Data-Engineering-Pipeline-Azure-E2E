@@ -3,7 +3,7 @@
 	"type": "Microsoft.Synapse/workspaces/linkedservices",
 	"properties": {
 		"typeProperties": {
-			"url": "https://gen2e2ede.dfs.core.windows.net"
+			"url": "https://etlstorageaccount01.dfs.core.windows.net"
 		},
 		"type": "AzureBlobFS",
 		"connectVia": {
