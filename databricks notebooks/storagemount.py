@@ -8,7 +8,7 @@ configs = {
 
 # Optionally, you can add <directory-name> to the source URI of your mount point.
 dbutils.fs.mount(
-  source = "abfss://bronze@gen2e2ede.dfs.core.windows.net/",
+  source = "abfss://bronze@etlstorageaccount01.dfs.core.windows.net/",
   mount_point = "/mnt/bronze",
   extra_configs = configs)
 
@@ -23,7 +23,7 @@ configs = {
 
 # Optionally, you can add <directory-name> to the source URI of your mount point.
 dbutils.fs.mount(
-  source = "abfss://silver@gen2e2ede.dfs.core.windows.net/",
+  source = "abfss://silver@etlstorageaccount01.dfs.core.windows.net/",
   mount_point = "/mnt/silver",
   extra_configs = configs)
 
@@ -38,7 +38,7 @@ configs = {
 
 # Optionally, you can add <directory-name> to the source URI of your mount point.
 dbutils.fs.mount(
-  source = "abfss://gold@gen2e2ede.dfs.core.windows.net/",
+  source = "abfss://gold@etlstorageaccount01.dfs.core.windows.net/",
   mount_point = "/mnt/gold",
   extra_configs = configs)
 
