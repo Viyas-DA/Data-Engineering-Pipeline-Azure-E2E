@@ -5,20 +5,20 @@
         "vulnerabilityAssessments_Default_storageContainerPath": {
             "type": "SecureString"
         },
-        "vaults_kv_e2e_de_name": {
-            "defaultValue": "kv-e2e-de",
+        "vaults_kv-etl-pipeline-01_name": {
+            "defaultValue": "kv-etl-pipeline-01",
             "type": "String"
         },
-        "workspaces_synw_e2e_de_name": {
-            "defaultValue": "synw-e2e-de",
+        "workspaces_synw-etl-pipeline": {
+            "defaultValue": "synw-etl-pipeline",
             "type": "String"
         },
         "workspaces_dbw_e2e_de_name": {
-            "defaultValue": "dbw-e2e-de",
+            "defaultValue": "dbw-etl-pipeline",
             "type": "String"
         },
-        "storageAccounts_gen2e2ede_name": {
-            "defaultValue": "gen2e2ede",
+        "storageAccounts_etlstorageaccount01_name": {
+            "defaultValue": "etlstorageaccount01",
             "type": "String"
         }
     },
@@ -27,10 +27,10 @@
         {
             "type": "Microsoft.Databricks/workspaces",
             "apiVersion": "2024-05-01",
-            "name": "[parameters('workspaces_dbw_e2e_de_name')]",
+            "name": "[parameters('workspaces_dbw-etl-pipeline')]",
             "location": "eastus2",
             "sku": {
-                "name": "premium"
+                "name": "free trial"
             },
             "properties": {
                 "defaultCatalog": {
@@ -76,7 +76,7 @@
         {
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2023-07-01",
-            "name": "[parameters('vaults_kv_e2e_de_name')]",
+            "name": "[parameters('vaults_kv-etl-pipeline-01_name')]",
             "location": "eastus2",
             "properties": {
                 "sku": {
@@ -91,7 +91,7 @@
                 "enableSoftDelete": true,
                 "softDeleteRetentionInDays": 90,
                 "enableRbacAuthorization": true,
-                "vaultUri": "[concat('https://', parameters('vaults_kv_e2e_de_name'), '.vault.azure.net/')]",
+                "vaultUri": "[concat('https://', parameters('vaults_kv-etl-pipeline-01_name'), '.vault.azure.net/')]",
                 "provisioningState": "Succeeded",
                 "publicNetworkAccess": "Enabled"
             }
@@ -99,7 +99,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-05-01",
-            "name": "[parameters('storageAccounts_gen2e2ede_name')]",
+            "name": "[parameters('storageAccounts_etlstorageaccount01_name')]",
             "location": "eastus2",
             "sku": {
                 "name": "Standard_RAGRS",
@@ -143,10 +143,10 @@
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
             "apiVersion": "2023-07-01",
-            "name": "[concat(parameters('vaults_kv_e2e_de_name'), '/dbwtoken')]",
+            "name": "[concat(parameters('vaults_kv-etl-pipeline-01_name'), '/dbwtoken')]",
             "location": "eastus2",
             "dependsOn": [
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv_e2e_de_name'))]"
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv-etl-pipeline-01_name'))]"
             ],
             "properties": {
                 "attributes": {
@@ -157,10 +157,10 @@
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
             "apiVersion": "2023-07-01",
-            "name": "[concat(parameters('vaults_kv_e2e_de_name'), '/localdb-password')]",
+            "name": "[concat(parameters('vaults_kv-etl-pipeline-01_name'), '/localdb-password')]",
             "location": "eastus2",
             "dependsOn": [
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv_e2e_de_name'))]"
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv-etl-pipeline-01_name'))]"
             ],
             "properties": {
                 "attributes": {
@@ -171,10 +171,10 @@
         {
             "type": "Microsoft.KeyVault/vaults/secrets",
             "apiVersion": "2023-07-01",
-            "name": "[concat(parameters('vaults_kv_e2e_de_name'), '/localdb-user')]",
+            "name": "[concat(parameters('vaults_kv-etl-pipeline-01_name'), '/localdb-user')]",
             "location": "eastus2",
             "dependsOn": [
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv_e2e_de_name'))]"
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_kv-etl-pipeline-01_name'))]"
             ],
             "properties": {
                 "attributes": {
@@ -185,9 +185,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "sku": {
                 "name": "Standard_RAGRS",
@@ -209,9 +209,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "sku": {
                 "name": "Standard_RAGRS",
@@ -233,9 +233,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "properties": {
                 "cors": {
@@ -246,9 +246,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "properties": {
                 "cors": {
@@ -259,19 +259,19 @@
         {
             "type": "Microsoft.Synapse/workspaces",
             "apiVersion": "2021-06-01",
-            "name": "[parameters('workspaces_synw_e2e_de_name')]",
+            "name": "[parameters('workspaces_synw-etl-pipeline')]",
             "location": "eastus2",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "identity": {
                 "type": "SystemAssigned"
             },
             "properties": {
                 "defaultDataLakeStorage": {
-                    "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]",
+                    "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]",
                     "createManagedPrivateEndpoint": false,
-                    "accountUrl": "https://gen2e2ede.dfs.core.windows.net",
+                    "accountUrl": "https://etlstorageaccount01.dfs.core.windows.net",
                     "filesystem": "gold"
                 },
                 "encryption": {},
@@ -298,9 +298,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/auditingSettings",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/Default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "retentionDays": 0,
@@ -314,9 +314,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/azureADOnlyAuthentications",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "azureADOnlyAuthentication": true
@@ -325,10 +325,10 @@
         {
             "type": "Microsoft.Synapse/workspaces/dedicatedSQLminimalTlsSettings",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/default')]",
             "location": "eastus2",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "minimalTlsVersion": "1.2"
@@ -337,9 +337,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/extendedAuditingSettings",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/Default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "retentionDays": 0,
@@ -353,9 +353,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/firewallRules",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/allowAll')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/allowAll')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "startIpAddress": "0.0.0.0",
@@ -365,9 +365,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/integrationruntimes",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/AutoResolveIntegrationRuntime')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/AutoResolveIntegrationRuntime')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "type": "Managed",
@@ -381,9 +381,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/securityAlertPolicies",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/Default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "state": "Disabled",
@@ -400,9 +400,9 @@
         {
             "type": "Microsoft.Synapse/workspaces/vulnerabilityAssessments",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('workspaces_synw_e2e_de_name'), '/Default')]",
+            "name": "[concat(parameters('workspaces_synw-etl-pipeline'), '/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw_e2e_de_name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_synw-etl-pipeline'))]"
             ],
             "properties": {
                 "recurringScans": {
@@ -415,10 +415,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default/bronze')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default/bronze')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_gen2e2ede_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_etlstorageaccount01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "properties": {
                 "immutableStorageWithVersioning": {
@@ -432,10 +432,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default/gold')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default/gold')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_gen2e2ede_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_etlstorageaccount01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "properties": {
                 "immutableStorageWithVersioning": {
@@ -449,10 +449,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2023-05-01",
-            "name": "[concat(parameters('storageAccounts_gen2e2ede_name'), '/default/silver')]",
+            "name": "[concat(parameters('storageAccounts_etlstorageaccount01_name'), '/default/silver')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_gen2e2ede_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_gen2e2ede_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_etlstorageaccount01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_etlstorageaccount01_name'))]"
             ],
             "properties": {
                 "immutableStorageWithVersioning": {
