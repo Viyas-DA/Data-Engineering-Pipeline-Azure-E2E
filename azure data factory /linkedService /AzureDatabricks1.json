@@ -9,7 +9,7 @@
 			"accessToken": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
-					"referenceName": "keyvault_e2e_de",
+					"referenceName": "kv-etl-pipeline-01",
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "dbwtoken"
