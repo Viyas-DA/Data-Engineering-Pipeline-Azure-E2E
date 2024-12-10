@@ -1,11 +1,11 @@
 {
-	"name": "keyvault_e2e_de",
+	"name": "kv-etl-pipeline-01",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureKeyVault",
 		"typeProperties": {
-			"baseUrl": "https://kv-e2e-de.vault.azure.net/"
+			"baseUrl": "https://kv-etl-pipeline-01.vault.azure.net/"
 		}
 	}
 }
