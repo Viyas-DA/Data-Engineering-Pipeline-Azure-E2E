@@ -1,3 +1,6 @@
+# data-etl-pipeline-project
+
 This resource group hosted all of the services used in this project.
 
-The "ExportedTemplate" folder contains the ARM template for automation and easy deployment. In the next project, I intend to use Terraform as IaC.
+![image](https://github.com/user-attachments/assets/09ea429c-6df7-47fa-873c-6d7c40a67fbc)
+
