@@ -5,7 +5,7 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"server": "VIYAS\SQLEXPRESS",
+			"server": "VIYAS\\SQLEXPRESS",
 			"database": "AdventureWorksLT2017",
 			"encrypt": "optional",
 			"trustServerCertificate": false,
