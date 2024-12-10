@@ -2,7 +2,7 @@
 	"name": "goldtables",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "synw-e2e-de-WorkspaceDefaultStorage",
+			"referenceName": "synw-etl-pipeline-WorkspaceDefaultStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
